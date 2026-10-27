@@ -1,0 +1,21 @@
+{
+  "business": {
+    "name": "Northside Studio",
+    "tagline": "a small appointments studio",
+    "timezone": "Europe/London",
+    "address": "12 Bridge Street",
+    "phone": "+44 20 0000 0000"
+  },
+  "hours": {
+    "open": "09:00",
+    "close": "17:00",
+    "lunch": ["12:30", "13:30"],
+    "days": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+  },
+  "services": [
+    { "id": "consult", "name": "consultation", "minutes": 30 },
+    { "id": "session", "name": "full session", "minutes": 60 }
+  ],
+  "slot_minutes": 30,
+  "max_days_ahead": 30
+}

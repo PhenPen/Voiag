@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voiag</title>
+    <style>
+      :root {
+        --bg: #0b0b0c;
+        --fg: #f2f2f2;
+        --muted: #8a8a90;
+        --line: #26262a;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: var(--bg);
+        color: var(--fg);
+        font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: 100%;
+        max-width: 560px;
+      }
+
+      header { margin-bottom: 28px; }
+
+      h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .sub {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .status {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .status::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        margin-right: 8px;
+        border-radius: 50%;
+        background: currentColor;
+        vertical-align: middle;
+      }
+
+      button {
+        font: inherit;
+        color: var(--bg);
+        background: var(--fg);
+        border: 0;
+        border-radius: 999px;
+        padding: 14px 28px;
+        cursor: pointer;
+      }
+
+      button:disabled { opacity: 0.5; cursor: default; }
+
+      .call { width: 100%; font-weight: 600; }
+
+      .log {
+        height: 46vh;
+        min-height: 220px;
+        margin: 24px 0 16px;
+        padding: 16px;
+        overflow-y: auto;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        font-size: 14px;
+      }
+
+      .line { margin-bottom: 10px; }
+
+      .who {
+        display: inline-block;
+        min-width: 52px;
+        margin-right: 8px;
+        color: var(--muted);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .line.agent .who { color: var(--fg); }
+      .line.tool { color: var(--muted); font-size: 12px; }
+      .line.tool .who { color: var(--muted); }
+      .line.error { color: #ff8a8a; }
+      .line.system { color: var(--muted); font-style: italic; }
+
+      .type { display: flex; gap: 8px; }
+
+      .type input {
+        flex: 1;
+        font: inherit;
+        color: var(--fg);
+        background: transparent;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 12px 18px;
+      }
+
+      .type input:focus { outline: 1px solid var(--fg); }
+
+      .type button { padding: 12px 20px; }
+
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .toggle input { accent-color: var(--fg); margin: 0; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Northside Studio</h1>
+        <p class="sub">voice receptionist</p>
+        <p class="status" id="status">idle</p>
+      </header>
+
+      <button class="call" id="call">Start call</button>
+
+      <label class="toggle">
+        <input type="checkbox" id="talk-over" />
+        <span>let me interrupt (needs headphones)</span>
+      </label>
+
+      <section class="log" id="log" aria-live="polite"></section>
+
+      <form class="type" id="type-form">
+        <input id="type-input" placeholder="or type instead of speaking" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

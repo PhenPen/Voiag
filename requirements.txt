@@ -1,0 +1,6 @@
+google-genai>=2.33
+fastapi>=0.162
+uvicorn>=0.54
+websockets>=17
+python-dotenv>=1.2
+tzdata>=2026.1
