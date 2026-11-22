@@ -13,7 +13,7 @@ you ──▶ mic ──▶ websocket ──▶ Gemini Live ──▶ tools ─�
 - Hears you and replies out loud. Interruptions are off by default (see Audio below).
 - Never invents availability: every slot comes from the booking logic.
 - Books, finds and cancels appointments in SQLite.
-- Shows the live transcript and every tool call in the page.
+- Shows the live conversation transcript in the page.
 
 Seven tools: `check_availability`, `book_appointment`, `find_appointments`,
 `cancel_appointment`, `get_business_info`, `take_message`, `end_call`.

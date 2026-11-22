@@ -118,9 +118,6 @@ function onMessage(event) {
     case "interrupted":
       stopPlayback();
       break;
-    case "tool":
-      addLine("tool", `${message.name} → ${JSON.stringify(message.result).slice(0, 140)}`, "tool");
-      break;
     case "turn_complete":
       lastRole = null;
       lastBody = null;
