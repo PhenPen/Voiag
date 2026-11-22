@@ -78,6 +78,14 @@
 
       .call { width: 100%; font-weight: 600; }
 
+      .mic-notice {
+        margin: 10px 0 0;
+        color: #ff8a8a;
+        font-size: 13px;
+      }
+
+      .mic-notice:empty { margin: 0; }
+
       .log {
         height: 46vh;
         min-height: 220px;
@@ -146,6 +154,7 @@
       </header>
 
       <button class="call" id="call">Start call</button>
+      <p class="mic-notice" id="mic-notice" role="status"></p>
 
       <label class="toggle">
         <input type="checkbox" id="talk-over" />

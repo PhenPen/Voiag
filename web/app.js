@@ -6,6 +6,7 @@
 
 const callBtn = document.getElementById("call");
 const statusEl = document.getElementById("status");
+const micNotice = document.getElementById("mic-notice");
 const logEl = document.getElementById("log");
 const form = document.getElementById("type-form");
 const input = document.getElementById("type-input");
@@ -223,13 +224,16 @@ async function start() {
     }
 
     // A missing or blocked microphone should not end the call: the text box works.
+    const callSocket = ws;
     try {
       await startMic();
-    } catch (error) {
-      addLine("error", `microphone unavailable (${error.name}) — type below instead`, "error");
+    } catch {
+      if (ws === callSocket) {
+        micNotice.textContent = "Microphone unavailable. You can still type below.";
+      }
     }
 
-    if (!live) return;
+    if (ws !== callSocket) return;
 
     callBtn.textContent = "End call";
     callBtn.disabled = false;
@@ -251,6 +255,7 @@ function teardown() {
 
   callBtn.textContent = "Start call";
   callBtn.disabled = false;
+  micNotice.textContent = "";
   setStatus("idle");
 }
 
