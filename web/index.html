@@ -18,6 +18,7 @@
         margin: 0;
         min-height: 100vh;
         display: grid;
+        grid-template-columns: minmax(0, 1fr);
         place-items: center;
         padding: 24px;
         background: var(--bg);
@@ -116,7 +117,8 @@
       .type { display: flex; gap: 8px; }
 
       .type input {
-        flex: 1;
+        flex: 1 1 0;
+        min-width: 0;
         font: inherit;
         color: var(--fg);
         background: transparent;
@@ -141,30 +143,98 @@
       }
 
       .toggle input { accent-color: var(--fg); margin: 0; }
+
+      .conversation-title { display: none; }
+
+      @media (min-width: 900px) {
+        body {
+          align-items: start;
+          padding: clamp(32px, 5vw, 80px);
+        }
+
+        main {
+          display: grid;
+          grid-template-columns: clamp(245px, 24vw, 320px) minmax(0, 1fr);
+          align-items: start;
+          gap: clamp(24px, 3vw, 48px);
+          max-width: 1456px;
+        }
+
+        .call-panel,
+        .conversation {
+          background: #111113;
+          border: 1px solid var(--line);
+          border-radius: 18px;
+          padding: clamp(22px, 2.2vw, 36px);
+        }
+
+        .call-panel h1 { font-size: 26px; }
+        .call-panel .sub { font-size: 14px; }
+
+        .conversation-title {
+          display: block;
+          margin: 0 0 18px;
+          font-size: 19px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+        }
+
+        .log {
+          height: clamp(320px, calc(100dvh - 280px), 780px);
+          margin: 0 0 20px;
+          padding: 24px;
+          background: var(--bg);
+          font-size: 16px;
+        }
+
+        .log:empty::before {
+          content: "Start a call to see the conversation here.";
+          color: var(--muted);
+          font-size: 14px;
+        }
+
+        .line {
+          display: grid;
+          grid-template-columns: 64px minmax(0, 1fr);
+          align-items: baseline;
+          gap: 16px;
+          margin-bottom: 16px;
+          max-width: 74ch;
+          overflow-wrap: anywhere;
+        }
+
+        .who { margin-right: 0; }
+        .type { gap: 12px; }
+      }
     </style>
   </head>
   <body>
     <main>
-      <header>
-        <h1>Northside Studio</h1>
-        <p class="sub">voice receptionist</p>
-        <p class="status" id="status">idle</p>
-      </header>
+      <div class="call-panel">
+        <header>
+          <h1>Northside Studio</h1>
+          <p class="sub">voice receptionist</p>
+          <p class="status" id="status">idle</p>
+        </header>
 
-      <button class="call" id="call">Start call</button>
-      <p class="mic-notice" id="mic-notice" role="status"></p>
+        <button class="call" id="call">Start call</button>
+        <p class="mic-notice" id="mic-notice" role="status"></p>
 
-      <label class="toggle">
-        <input type="checkbox" id="talk-over" />
-        <span>let me interrupt (needs headphones)</span>
-      </label>
+        <label class="toggle">
+          <input type="checkbox" id="talk-over" />
+          <span>let me interrupt (needs headphones)</span>
+        </label>
+      </div>
 
-      <section class="log" id="log" aria-live="polite"></section>
+      <section class="conversation" aria-label="Conversation">
+        <h2 class="conversation-title">Transcript</h2>
+        <div class="log" id="log" role="log" aria-label="Transcript" tabindex="0"></div>
 
-      <form class="type" id="type-form">
-        <input id="type-input" placeholder="or type instead of speaking" autocomplete="off" />
-        <button type="submit">Send</button>
-      </form>
+        <form class="type" id="type-form">
+          <input id="type-input" aria-label="Type a message" placeholder="or type instead of speaking" autocomplete="off" />
+          <button type="submit">Send</button>
+        </form>
+      </section>
     </main>
 
     <script src="/static/app.js"></script>
